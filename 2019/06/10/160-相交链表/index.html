@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="geqi&#39;s blog">
 <meta property="og:description" content="leetcode NO.160">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-10T13:58:57.506Z">
+<meta property="og:updated_time" content="2019-06-10T14:05:49.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="160.相交链表">
 <meta name="twitter:description" content="leetcode NO.160">
@@ -198,43 +198,7 @@
 </ul>
 <h3 id="solution-2"><a href="#solution-2" class="headerlink" title="solution 2"></a>solution 2</h3><p>执行用时 :3 ms,在所有Java提交中击败了32.31%的用户<br>内存消耗 :47.5 MB,在所有Java提交中击败了16.05%的用户</p>
 <p>看起来算法没问题，不知道数据为什么不好= =</p>
-<p>``` java<br>/**</p>
-<ul>
-<li><p>Definition for singly-linked list.</p>
-</li>
-<li><p>public class ListNode {</p>
-</li>
-<li><p>int val;</p>
-</li>
-<li><p>ListNode next;</p>
-</li>
-<li><p>ListNode(int x) {</p>
-</li>
-<li><p>val = x;</p>
-</li>
-<li><p>next = null;</p>
-</li>
-<li><p>}</p>
-</li>
-<li><p>}</p>
-</li>
-<li><p>/
-public class Solution {<br>  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {</p>
-<pre><code>if(headA == null || headB == null){
-    return null;
-}
-ListNode a=headA;
-ListNode b=headB;
-
-while(a != b){
-    a= a!=null ? a.next : headB;
-    b= b!=null ? b.next : headA;
-}
-
-return a;</code></pre><p>  }<br>}</p>
-</li>
-</ul>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode a=headA;</span><br><span class="line">        ListNode b=headB;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(a != b)&#123;</span><br><span class="line">            a= a!=<span class="keyword">null</span> ? a.next : headB;</span><br><span class="line">            b= b!=<span class="keyword">null</span> ? b.next : headA;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
