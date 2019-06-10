@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lofbat.github.io">
-  <title>Archives: 2019 | geqi&#39;s blog</title>
+  <title>160.相交链表 | geqi&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="geqi&#39;s blog">
-<meta property="og:url" content="https://lofbat.github.io/archives/2019/index.html">
+  <meta name="description" content="leetcode NO.160">
+<meta name="keywords" content="leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="160.相交链表">
+<meta property="og:url" content="https://lofbat.github.io/2019/06/10/160-相交链表/index.html">
 <meta property="og:site_name" content="geqi&#39;s blog">
+<meta property="og:description" content="leetcode NO.160">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-10T13:58:57.506Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="geqi&#39;s blog">
+<meta name="twitter:title" content="160.相交链表">
+<meta name="twitter:description" content="leetcode NO.160">
   
     <link rel="alternative" href="/atom.xml" title="geqi&#39;s blog" type="application/atom+xml">
   
@@ -154,36 +159,110 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-160-相交链表" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      160.相交链表
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/10/160-相交链表/" class="archive-article-date">
+
+        
+        <a href="/2019/06/10/160-相交链表/" class="archive-article-date">
   	<time datetime="2019-06-10T13:39:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/10/160-相交链表/">160.相交链表</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>编写一个程序，找到两个单链表相交的起始节点。</p>
+<p>注意：</p>
+<ul>
+<li>如果两个链表没有交点，返回 null.</li>
+<li>在返回结果后，两个链表仍须保持原有的结构。</li>
+<li>可假定整个链表结构中没有循环。</li>
+<li>程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+</li>
+</ul>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>两个单向链表相交，从相交点到链表末尾的节点是相同的，直接的办法是将两个单链表逆序后，再从尾节点开始比较，找出第一个交点</p>
+<p>但这种方法太蠢了，不符合笔者的气质，所以用了另一种方法来处理本题</p>
+<p>两个单链表的第一个交点在相交前的节点数量是不同的，无法直接顺序比较（需要保证O(n)的时间复杂度），所以需要想个办法，让相交前的节点数量一致；</p>
+<ul>
+<li>solution 1：遍历两个单链表，获得它们的长度之差x后，从可能存在相交节点的第一个节点位置开始比较（较长链表的第x+1个节点）</li>
+<li>solution 2：原有链表a，b，假设存在链表c=a+b，d=b+a，那c、d的第二个交点前的长度是相同的，那使用两个指针，分别遍历c、d两个链表，获取第一个相同节点即可</li>
+</ul>
+<h3 id="solution-2"><a href="#solution-2" class="headerlink" title="solution 2"></a>solution 2</h3><p>执行用时 :3 ms,在所有Java提交中击败了32.31%的用户<br>内存消耗 :47.5 MB,在所有Java提交中击败了16.05%的用户</p>
+<p>看起来算法没问题，不知道数据为什么不好= =</p>
+<p>``` java<br>/**</p>
+<ul>
+<li><p>Definition for singly-linked list.</p>
+</li>
+<li><p>public class ListNode {</p>
+</li>
+<li><p>int val;</p>
+</li>
+<li><p>ListNode next;</p>
+</li>
+<li><p>ListNode(int x) {</p>
+</li>
+<li><p>val = x;</p>
+</li>
+<li><p>next = null;</p>
+</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+<li><p>/
+public class Solution {<br>  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {</p>
+<pre><code>if(headA == null || headB == null){
+    return null;
+}
+ListNode a=headA;
+ListNode b=headB;
+
+while(a != b){
+    a= a!=null ? a.next : headB;
+    b= b!=null ? b.next : headA;
+}
+
+return a;</code></pre><p>  }<br>}</p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,57 +274,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lofbat.github.io/2019/06/10/160-相交链表/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/07/70-爬楼梯/" class="archive-article-date">
-  	<time datetime="2019-06-07T10:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/07/70-爬楼梯/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">70.爬楼梯</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/07/70-爬楼梯/">70.爬楼梯</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solution-2"><span class="toc-number">2.</span> <span class="toc-text">solution 2</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -268,8 +409,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
